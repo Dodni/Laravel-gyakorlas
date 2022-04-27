@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,9 +17,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    // \Illuminate\Support\Facades\DB::listen(function ($query) {
+        // \Illuminate\Support\Facades\Log::info('foo');
+        // logger($query->sql, $query->bindings);
+    // });
+
+    // clockwork-el
+    return view('posts', [
+        'posts' => Post::latest('published_at')->get()
+    ]);
+    /*
     return view('posts', [
         'posts' => Post::all()
     ]);
+    */
 });
 
 Route::get('posts/{post}', function (Post $post){ // Post::where('slug', $post)->firstOrFail()
@@ -30,6 +42,12 @@ Route::get('posts/{post}', function (Post $post){ // Post::where('slug', $post)-
 Route::get('categories/{category:slug}', function (Category $category){
     return view('posts', [
         'posts' => $category->posts
+    ]);
+});
+
+Route::get('authors/{author:username}', function (User $author) {
+    return view('posts', [
+        'posts' => $author->posts
     ]);
 });
 

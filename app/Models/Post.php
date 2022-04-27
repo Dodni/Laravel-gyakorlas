@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory; // Post::factory()
 
     protected $guarded = []; // = ['id']
     //protected  $fillable = ['title', 'excerpt', 'body', 'id'];
+
+    protected $with = ['category', 'author']; // helper method h ne kelljen mindig beleírni hosszan a routnal azt a sort
 
     public function getRouteKeyName()
     {
@@ -21,5 +23,10 @@ class Post extends Model
     {
         //hasOne, HasMany, belongsTo, belongsToMany
         return $this->belongsTo(Category::class);
+    }
+
+    public function author() // author_id
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
