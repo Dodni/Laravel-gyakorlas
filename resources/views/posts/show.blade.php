@@ -11,8 +11,12 @@
 
                     <div class="flex items-center lg:justify-center text-sm mt-4">
                         <img src="/images/lary-avatar.svg" alt="Lary avatar">
-                        <div class="ml-3 text-left">
-                            <h5 class="font-bold">{{ $post->author->name }}</h5>
+                        <div class="ml-3">
+                            <h5 class="font-bold">
+                                <a href="/authors/{{$post->author->username}}">
+                                    {{$post->author->name}}
+                                </a>
+                            </h5>
                         </div>
                     </div>
                 </div>
@@ -44,9 +48,15 @@
                     </h1>
 
                     <div class="space-y-4 lg:text-lg leading-loose">
-                        {{ $post->body }}
+                        {!! $post->body !!}
                     </div>
                 </div>
+                <section class="col-span-8 col-start-5 mt-10 space-y-3">
+                    <x-post-comment/>
+                    <x-post-comment/>
+                    <x-post-comment/>
+                    <x-post-comment/>
+                </section>
             </article>
         </main>
     </section>
